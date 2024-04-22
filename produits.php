@@ -17,17 +17,19 @@ body {
 
 <?php
 
-include("include/connexion.inc.php");
+include("connexion.inc.php");
 
 $categorie = $_GET['categorie'];
 
 echo "<h2>"."Produits de la catégorie ".$categorie."</br></h2>";
 
 $cnx->exec("SET search_path TO sae2");
-$results = $cnx->query(" SELECT produits.description, produits.prix FROM produits JOIN appartient ON produits.numeroproduit = appartient.numeroproduit WHERE appartient.description = '".$categorie."';");
+$results = $cnx->query(" SELECT produits.numeroproduit, produits.description, produits.prix FROM produits JOIN appartient ON produits.numeroproduit = appartient.numeroproduit WHERE appartient.description = '".$categorie."';");
 
 while ($ligne = $results->fetch(PDO::FETCH_OBJ)) {
-    echo $ligne->description."\t".$ligne->prix."</br>";
+    echo $ligne->description."</br>";
+	echo $ligne->prix." euros</br>";
+	echo "<a href=\"ajouterpanier.php?produit=".$ligne->numeroproduit."&categorie=".$categorie."\">"."Ajouter au panier"."</a>"."</br>";
 }
 $results->closeCursor();
 ?>

@@ -20,14 +20,14 @@ body {
 
 <?php
 
-include("include/connexion.inc.php");
+include("connexion.inc.php");
 
 $cnx->exec("SET search_path TO sae2");
 $results = $cnx->query("SELECT description FROM catégorie");
 
 
 while ($ligne = $results->fetch(PDO::FETCH_OBJ)) {
-    echo "<a href=\"https://etudiant.u-pem.fr/~achirecesei/TEST_PHP/produits.php?categorie=".$ligne->description."\">".$ligne->description."</a>"."</br>";
+    echo "<a href=\"produits.php?categorie=".$ligne->description."\">".$ligne->description."</a>"."</br>";
 	// Fabrique le lien pour la page produit, met le nom de la catégorie dans la variable get "categorie"
 }
 $results->closeCursor();
