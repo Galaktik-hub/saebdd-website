@@ -14,26 +14,23 @@ body {
 </head>
 
 <body>
-<h1>Accueil</h1>
-
-<h2>Catégories</h2>
 
 <?php
 
 include("connexion.inc.php");
 
-$cnx->exec("SET search_path TO sae2");
-$results = $cnx->query("SELECT description FROM catégorie");
+$categorie = $_GET['categorie'];
 
+echo "<h2>"."Produits de la catégorie ".$categorie."</br></h2>";
+
+$cnx->exec("SET search_path TO sae2");
+$results = $cnx->query(" SELECT produits.description, produits.prix FROM produits JOIN appartient ON produits.numeroproduit = appartient.numeroproduit WHERE appartient.description = '".$categorie."';");
 
 while ($ligne = $results->fetch(PDO::FETCH_OBJ)) {
-    echo "<a href=\"https://etudiant.u-pem.fr/~achirecesei/TEST_PHP/produits.php?categorie=".$ligne->description."\">".$ligne->description."</a>"."</br>";
-	// Fabrique le lien pour la page produit, met le nom de la catégorie dans la variable get "categorie"
+    echo $ligne->description."\t".$ligne->prix."</br>";
 }
 $results->closeCursor();
 ?>
-
-<h2>Produits à la une</h2>
 
 </body>
 </html>
