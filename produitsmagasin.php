@@ -16,12 +16,12 @@ body {
 <body>
 
 <?php
-include("top.php");
+include("include/header.inc.php");
 ?>
 
 <?php
 
-include("connexion.inc.php");
+include("include/connexion.inc.php");
 
 $magasin = $_GET['magasin'];
 $categorie = $_GET['categorie'];
