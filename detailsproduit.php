@@ -16,7 +16,7 @@ body {
 <body>
 
 <?php
-include("top.php");
+include("include/header.inc.php");
 ?>
 
 </br>
