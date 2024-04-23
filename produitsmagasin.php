@@ -28,7 +28,6 @@ $categorie = $_GET['categorie'];
 
 echo "<h2>"."Produits de la catégorie ".$categorie." disponibles dans le magasin ".$magasin."</h2>";
 
-$cnx->exec("SET search_path TO sae2");
 $results = $cnx->query("SELECT produits.numeroproduit, produits.description, produits.prix FROM produits JOIN possède ON produits.numeroproduit = possède.numeroproduit JOIN appartient ON produits.numeroproduit = appartient.numeroproduit WHERE possède.numeropdv = '".$magasin."' AND appartient.description = '".$categorie."'");
 
 while ($ligne = $results->fetch(PDO::FETCH_OBJ)) {

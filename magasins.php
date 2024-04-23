@@ -27,7 +27,6 @@ $categorie = $_GET['categorie'];
 
 echo "<h2>"."Produits de la catégorie ".$categorie." disponibles par magasins</h2><a href=\"produits.php?categorie=".$categorie."\">Voir disponibilités en ligne</a></br></br>";
 
-$cnx->exec("SET search_path TO sae2");
 $results = $cnx->query("SELECT adresse, numeropdv FROM point_de_vente");
 
 while ($ligne = $results->fetch(PDO::FETCH_OBJ)) {

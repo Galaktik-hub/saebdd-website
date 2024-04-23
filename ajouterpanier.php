@@ -1,7 +1,5 @@
 <?php
 
-include("include/connexion.inc.php");
-
 if (isset($_GET["produit"])) {
 	if (!(isset($_COOKIE["panier"]))) {
 		$cart = [];

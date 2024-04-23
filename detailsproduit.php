@@ -27,8 +27,6 @@ include("include/connexion.inc.php");
 
 $produit = $_GET['produit'];
 
-$cnx->exec("SET search_path TO sae2");
-
 $results = $cnx->query("SELECT description, prix FROM produits WHERE numeroproduit = '".$produit."'");
 $ligne = $results->fetch(PDO::FETCH_OBJ);
 echo $ligne->description."</br>";

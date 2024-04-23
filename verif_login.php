@@ -4,8 +4,6 @@ if (!(isset($_POST['login']) && isset($_POST['mdp']))) { /* Vérification que l'
 }
 
 include('include/connexion.inc.php');
-$cnx->exec("SET search_path TO sae2");
-
 
 if (isset($_POST['login']) && isset($_POST['mdp'])) {
     $login=$_POST['login'];

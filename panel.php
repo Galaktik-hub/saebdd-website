@@ -1,6 +1,5 @@
 <?php
     include("include/connexion.inc.php");
-    $cnx->exec("SET search_path TO sae2");
 
     if (!(isset($_COOKIE['login'] ) && isset($_COOKIE['mdp']))) {
         header('location: authentification.php');

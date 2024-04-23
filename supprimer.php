@@ -1,7 +1,5 @@
 <?php
 
-include("include/connexion.inc.php");
-
 if (isset($_GET["produit"])) {
 	$oldcart = unserialize($_COOKIE["panier"]);
 	$cart = [];
