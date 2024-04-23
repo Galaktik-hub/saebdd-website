@@ -3,7 +3,7 @@
  <head>
  
 	<!-- En-tête du document Si avec l'UTF8 cela ne fonctionne pas mettez charset=ISO-8859-1 -->
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Test de connexion</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>SAE BDD</title>
 
 	<style type="text/css">
 body {
@@ -14,15 +14,30 @@ body {
 </head>
 
 <body>
+
+<?php
+include("top.php");
+include("connexion.inc.php");
+$cnx->exec("SET search_path TO sae2");
+?>
+
 <h1>Accueil</h1>
+
+<h2>Recheche</h2>
+<form method="get">
+	<select name="produit">
+		<option disables selected>Rechercher...</option>
+		<?php
+		$results = $cnx->query("SELECT numeroproduit, description FROM produits");
+		while ($ligne = $results->fetch(PDO::FETCH_OBJ)) { // Nous mener sur la page detailsproduit du produit selectionné dans le menu, Il semblerait qu'on soit obligé d'utiliser POST, https://stackoverflow.com/questions/21524405/how-do-i-store-select-value-into-a-php-variable
+			?> <option value="<?php echo $ligne->numeroproduit ?>"> <?php echo $ligne->description; } ?> </option>
+	</select>
+	<input type="submit" formaction=<?php echo "detailsproduit.php?produit=".$_POST["produit"] ?> value="Rechercher">
+</form>
 
 <h2>Catégories</h2>
 
 <?php
-
-include("include/connexion.inc.php");
-
-$cnx->exec("SET search_path TO sae2");
 $results = $cnx->query("SELECT description FROM catégorie");
 
 
@@ -34,10 +49,6 @@ $results->closeCursor();
 ?>
 
 <h2>Produits à la une</h2>
-
-<?php
-	include("include/footer.inc.php");
-?>
 
 </body>
 </html>
