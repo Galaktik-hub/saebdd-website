@@ -49,5 +49,16 @@ $results->closeCursor();
 
 <h2>Produits à la une</h2>
 
+<?php
+	$results = $cnx->query("SELECT numeroproduit, COUNT(*) AS nombre FROM achat GROUP BY numeroproduit ORDER BY nombre DESC LIMIT 3;");
+	while ($num = $results->fetch(PDO::FETCH_OBJ)) {
+		$produit = $cnx->query("SELECT produits.numeroproduit, produits.description, produits.prix FROM produits WHERE numeroproduit = '".$num->numeroproduit."'");
+		while ($ligne = $produit->fetch(PDO::FETCH_OBJ)) {
+			echo "<a href=\"detailsproduit.php?produit=".$ligne->numeroproduit."\">".$ligne->description."</a></br>";
+			echo $ligne->prix." euros</br></br>";
+		}
+	}
+?>
+
 </body>
 </html>

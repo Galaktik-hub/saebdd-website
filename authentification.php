@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-	<title>Formulaire de saisie de login et de mot de passe</title>
+	<title>Connexion</title>
 	<style type="text/css">
 		body {
 			background-color:#ffd;
@@ -16,7 +16,7 @@
 	include("include/header.inc.php");
 ?>
 
-<h1>Formulaire de saisie de login et de mot de passe</h1>
+<h1>Connexion au compte utilisateur</h1>
 
 <form action="verif_login.php" method="post">
 	<table>
