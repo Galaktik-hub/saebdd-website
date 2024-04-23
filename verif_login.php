@@ -13,8 +13,8 @@ if (isset($_POST['login']) && isset($_POST['mdp'])) {
     if ($ligne->correct == 0) {
         header('location: authentification.php');
     } else {
-        $_COOKIE['login']=$login;
-        $_COOKIE['mdp']=$mdp;
+        setcookie('login', $login, time() + 60*60*31);
+        setcookie('mdp', $mdp, time() + 60*60*31);
         header('location: accueil.php');
     }
 }

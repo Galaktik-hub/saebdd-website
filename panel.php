@@ -4,11 +4,6 @@
     if (!(isset($_COOKIE['login'] ) && isset($_COOKIE['mdp']))) {
         header('location: authentification.php');
     }
-
-    $resultat=$cnx->query("SELECT COUNT(*) AS correct FROM authentification WHERE mail='".$_COOKIE['login']."' AND mdp='".$_COOKIE['mdp']."'");
-    if ($resultat->fetch(PDO::FETCH_OBJ)->correct == 0) {
-        header('location: authentification.php');
-    }
 ?>
 
 <!DOCTYPE html>
@@ -27,13 +22,26 @@
     </head>
 
     <body>
-    <h1>Panel administrateur</h1>
-
     <?php
-        $resultat = $cnx->query("SELECT ");
-    ?>
+        include("include/header.inc.php");
 
-    <?php
+        echo "<h1>Panel administrateur</h1>";
+
+        $resultat = $cnx->query("SELECT niveau FROM client WHERE email='".$_COOKIE['login']."' AND mdp='".$_COOKIE['mdp']."'");
+        $niveau=$resultat->fetch(PDO::FETCH_OBJ)->niveau;
+        if ($niveau == 1 || $niveau == 2) {
+            header("location: accueil.php");
+        }
+        echo "<h2>Section managérial</h2>";
+        if ($niveau == 4) {
+            echo "<h2>Section administrateur</h2>";
+            echo "<h3>Liste des utilisateurs</h3>";
+            $users = $cnx->query("SELECT * FROM client");
+            while ($ligne = $users->fetch(PDO::FETCH_OBJ)) {
+                echo $ligne->email." | ".$ligne->nom." | ".$ligne->prenom." | ".$ligne->niveau."<br />";
+            }
+        }
+
         include("include/footer.inc.php");
     ?>
 

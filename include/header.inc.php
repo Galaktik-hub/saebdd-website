@@ -12,5 +12,6 @@
             echo "<a href=\"authentification.php\">Connexion</a>";
         }
     ?>
+    <hr>
 </body>
 </html>
