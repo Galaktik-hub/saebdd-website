@@ -7,6 +7,7 @@ $user =  'achirecesei';
 $pass =  '1078515';
 try {
     $cnx = new PDO('pgsql:host=sqletud.u-pem.fr;dbname=achirecesei_db', $user, $pass) ;
+    $cnx->exec("SET search_path TO sae2");
 }
 catch (PDOException $e) {
     echo "ERREUR : La connexion a échouée";

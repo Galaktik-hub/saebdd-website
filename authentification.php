@@ -20,7 +20,7 @@
 
 <form action="verif_login.php" method="post">
 	<table>
-		<tr><td><label for="pseudo">Adresse e-mail</label></td><td><input type="text" name="pseudo" /></td></tr>
+		<tr><td><label for="pseudo">Adresse e-mail</label></td><td><input type="text" name="login" /></td></tr>
 		<tr><td><label for="mdp">Mot de passe</label></td><td><input type="password" name="mdp" /></td></tr>
 	</table>
 	<br />
@@ -30,18 +30,3 @@
 
 </body>
 </html>
-<?php
-	if (isset($_GET['errlog'])) {
-		$message = "Erreur. Utilisateur non reconnu.";
-		echo "<script>alert('$message');</script>";
-	} elseif (isset($_GET['errmdp'])) {
-		$message = "Erreur. Mot de passe incorrect";
-		echo "<script>alert('$message');</script>";
-	} elseif (isset($_GET['deco'])) {
-		$message = "Vous avez bien été déconnecté.";
-		echo "<script>alert('$message');</script>";
-	} elseif (isset($_GET['notconnected'])) {
-		$message = "Veuillez vous connecter.";
-		echo "<script>alert('$message');</script>";
-	}
-?>
