@@ -5,7 +5,7 @@ if (!(isset($_SESSION['login']) && isset($_SESSION['mdp']))) { /* Vérification 
     header('location: form_auth.php');
 }
 
-include('connexion.inc.php');
+include('include/connexion.inc.php');
 ?>
 <!DOCTYPE html>
 <html>
