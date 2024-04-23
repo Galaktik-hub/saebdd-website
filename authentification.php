@@ -27,18 +27,17 @@
 </body>
 </html>
 <?php
-/* user1=COUCOU, user2=BONSOIR!, user3=klmapqjdf, user4=145236987*/
-if (isset($_GET['errlog'])) {
-    $message = "Erreur. Utilisateur non reconnu.";
-    echo "<script>alert('$message');</script>";
-} elseif (isset($_GET['errmdp'])) {
-    $message = "Erreur. Mot de passe incorrect";
-    echo "<script>alert('$message');</script>";
-} elseif (isset($_GET['deco'])) {
-    $message = "Vous avez bien été déconnecté.";
-    echo "<script>alert('$message');</script>";
-} elseif (isset($_GET['notconnected'])) {
-    $message = "Veuillez vous connecter.";
-    echo "<script>alert('$message');</script>";
-}
+	if (isset($_GET['errlog'])) {
+		$message = "Erreur. Utilisateur non reconnu.";
+		echo "<script defer>alert('$message');</script>";
+	} elseif (isset($_GET['errmdp'])) {
+		$message = "Erreur. Mot de passe incorrect";
+		echo "<script defer>alert('$message');</script>";
+	} elseif (isset($_GET['deco'])) {
+		$message = "Vous avez bien été déconnecté.";
+		echo "<script defer >alert('$message');</script>";
+	} elseif (isset($_GET['notconnected'])) {
+		$message = "Veuillez vous connecter.";
+		echo "<script defer>alert('$message');</script>";
+	}
 ?>

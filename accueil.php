@@ -35,5 +35,9 @@ $results->closeCursor();
 
 <h2>Produits à la une</h2>
 
+<?php
+	include("include/footer.inc.php");
+?>
+
 </body>
 </html>

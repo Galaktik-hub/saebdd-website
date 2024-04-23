@@ -2,5 +2,5 @@
     session_start();
     session_unset();
     session_destroy();
-    header('location: login.php?deco=1');
+    header('location: authentification.php?deco=1');
 ?>
