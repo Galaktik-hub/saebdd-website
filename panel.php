@@ -2,7 +2,12 @@
     include("include/connexion.inc.php");
     $cnx->exec("SET search_path TO sae2");
 
-    if (!(isset($_COOKIE['login']))) {
+    if (!(isset($_COOKIE['login'] ) && isset($_COOKIE['mdp']))) {
+        header('location: authentification.php');
+    }
+
+    $resultat=$cnx->query("SELECT COUNT(*) AS correct FROM authentification WHERE mail='".$_COOKIE['login']."' AND mdp='".$_COOKIE['mdp']."'");
+    if ($resultat->fetch(PDO::FETCH_OBJ)->correct == 0) {
         header('location: authentification.php');
     }
 ?>
@@ -12,7 +17,7 @@
     <head>
  
         <!-- En-tête du document Si avec l'UTF8 cela ne fonctionne pas mettez charset=ISO-8859-1 -->
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Test de connexion</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Panel administrateur</title>
 
         <style type="text/css">
         body {
@@ -24,12 +29,10 @@
 
     <body>
     <h1>Panel administrateur</h1>
-    
+
     <?php
-
+        $resultat = $cnx->query("SELECT ");
     ?>
-
-    <h2>Produits à la une</h2>
 
     <?php
         include("include/footer.inc.php");

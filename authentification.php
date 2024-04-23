@@ -12,6 +12,10 @@
 </head>
 
 <body>
+<?php
+	include("include/header.inc.php");
+?>
+
 <h1>Formulaire de saisie de login et de mot de passe</h1>
 
 <form action="verif_login.php" method="post">
@@ -29,15 +33,15 @@
 <?php
 	if (isset($_GET['errlog'])) {
 		$message = "Erreur. Utilisateur non reconnu.";
-		echo "<script defer>alert('$message');</script>";
+		echo "<script>alert('$message');</script>";
 	} elseif (isset($_GET['errmdp'])) {
 		$message = "Erreur. Mot de passe incorrect";
-		echo "<script defer>alert('$message');</script>";
+		echo "<script>alert('$message');</script>";
 	} elseif (isset($_GET['deco'])) {
 		$message = "Vous avez bien été déconnecté.";
-		echo "<script defer >alert('$message');</script>";
+		echo "<script>alert('$message');</script>";
 	} elseif (isset($_GET['notconnected'])) {
 		$message = "Veuillez vous connecter.";
-		echo "<script defer>alert('$message');</script>";
+		echo "<script>alert('$message');</script>";
 	}
 ?>
