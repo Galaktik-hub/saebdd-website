@@ -16,13 +16,13 @@ body {
 <body>
 
 <?php
-include("top.php");
+include("include/header.inc.php");
 ?>
 
 <h1>Panier</h1>
 
 <?php
-include("connexion.inc.php");
+include("include/connexion.inc.php");
 $cnx->exec("SET search_path TO sae2");
 
 if (isset($_COOKIE["panier"])) {
