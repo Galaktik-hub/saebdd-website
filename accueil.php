@@ -20,7 +20,7 @@ body {
 
 <?php
 
-include("connexion.inc.php");
+include("include/connexion.inc.php");
 
 $cnx->exec("SET search_path TO sae2");
 $results = $cnx->query("SELECT description FROM catégorie");
