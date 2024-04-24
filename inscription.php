@@ -12,7 +12,7 @@
     ?>
     <h1>Création du compte</h1>
 
-    <form action="" method="post">
+    <form action="creer_compte.php" method="post">
         <label for="nom">Nom</label>
         <input type="text" id="nom" name="nom" required><br><br>
         <label for="prenom">Prénom</label>
@@ -44,47 +44,6 @@
 
 if (isset($_COOKIE['login']) && isset($_COOKIE['mdp'])) {
     header('location: compte.php');
-}
-
-
-
-if (isset($_POST['mdp'])) {
-    include('include/connexion.inc.php');
-
-    $req = $cnx->prepare('SELECT COUNT(*) AS total FROM client WHERE email = :email');
-    $req->bindParam(':email', $_POST['email']);
-    $req->execute();
-    $ligne = $req->fetch(PDO::FETCH_OBJ);
-    if ($ligne->total > 0) {
-        header('location: inscription.php?state=2');
-    }
-
-
-    // TODO: Réparer la requête
-    $req = $cnx->prepare('INSERT INTO client (nom, prenom, email, telephone, niveau, mdp) VALUES (:nom, :prenom, :email, :tel, :niveau, :mdp);');
-    $req->bindParam(':nom', $nom);
-    $req->bindParam(':prenom', $prenom);
-    $req->bindParam(':email', $email);
-    $req->bindParam(':tel', $tel);
-    $req->bindParam(':niveau', $niveau);
-    $req->bindParam(':mdp', $mdp);
-
-    $nom = trim($_POST['nom']);
-    $prenom = trim($_POST['prenom']);
-    $email = trim($_POST['email']);
-    $tel = preg_replace('/\D/', '', $_POST['tel']); // On retire tout ce qui n'est pas un chiffre
-    $niveau = 1;
-    $mdp = $_POST['mdp'];
-
-    $res = $req->execute(); 
-
-    if ($res) {
-        setcookie('login', $login, time() + 60*60*31, '/');
-        setcookie('mdp', $mdp, time() + 60*60*31, '/');
-        header('location: compte.php');
-    } else {
-        echo '<p class="error">Une erreur est survenue : ' . $cnx->errorInfo()[2] . '</p>' ;
-    }
 }
 
 ?>
