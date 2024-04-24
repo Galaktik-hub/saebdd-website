@@ -6,16 +6,16 @@ if (!(isset($_POST['login']) && isset($_POST['mdp']))) { /* Vérification que l'
 include('include/connexion.inc.php');
 
 if (isset($_POST['login']) && isset($_POST['mdp'])) {
-    $login=$_POST['login'];
-    $mdp=$_POST['mdp'];
-    $resultat=$cnx->query("SELECT COUNT(*) AS correct FROM client WHERE email='$login' AND mdp='$mdp'");
-    $ligne=$resultat->fetch(PDO::FETCH_OBJ);
+    $req = $cnx->prepare("SELECT COUNT(*) AS correct FROM client WHERE email=:login AND mdp=:mdp");
+    $req->bindParam(':login', $_POST['login']);
+    $req->bindParam(':mdp', $_POST['mdp']);
+    $req->execute();
+    $ligne=$req->fetch(PDO::FETCH_OBJ);
     if ($ligne->correct == 0) {
         header('location: authentification.php');
     } else {
-        setcookie('login', $login, time() + 60*60*24*31);
-        setcookie('mdp', $mdp, time() + 60*60*24*31);
+        setcookie('login', $_POST['login'], time() + 60*60*24*31);
+        setcookie('mdp', $_POST['mdp'], time() + 60*60*24*31);
         header('location: accueil.php');
     }
 }
-?>
