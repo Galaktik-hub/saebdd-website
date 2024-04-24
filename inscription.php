@@ -83,7 +83,7 @@ if (isset($_POST['mdp'])) {
         setcookie('mdp', $mdp, time() + 60*60*31, '/');
         header('location: compte.php');
     } else {
-        echo '<p class="error">Une erreur est survenue : ' . $cnx->errorInfo() . '</p>' ;
+        echo '<p class="error">Une erreur est survenue : ' . $cnx->errorInfo()[2] . '</p>' ;
     }
 }
 
