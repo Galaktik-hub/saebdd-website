@@ -66,6 +66,7 @@
 			?> <option value="<?php echo $ligne->description ?>"> <?php echo $ligne->description; } ?> </option>
 	</select>
 
+    </br></br>
     <input type="submit" value="Ajouter le produit">
 </form>
 <h3><a href="../panel.php">Retour au panel</a></h3>

@@ -41,7 +41,8 @@
     echo '        <option value="niveau">Niveau</option>';
     echo '        <option value="mdp">Mot de passe</option>';
     echo '    </select>';
-    echo '    <input type="text" name="valeur" id="valeur" required><br>';
+    echo '    <br><p>Entrez la nouvelle valeur du champ</p>';
+    echo '    <input type="text" name="valeur" id="valeur" required><br><br>';
     echo '    <input type="submit" value="Modifier l\'utilisateur">';
     echo '</form>';
 
