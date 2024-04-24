@@ -32,7 +32,16 @@
         if ($niveau == 1 || $niveau == 2) {
             header("location: accueil.php");
         }
-        echo "<h2>Section managérial</h2>";
+        if ($niveau == 3 || $niveau == 4) {
+            echo "<h2>Section managérial</h2>";
+            echo "<h3>Magasins à gérer</h3>";
+            echo 'Numero | Adresse | Horaires<br>';
+            $resultat_mag = $cnx->query("SELECT * FROM point_de_vente");
+            while ($ligne_mag = $resultat_mag->fetch(PDO::FETCH_OBJ)) {
+                echo $ligne_mag->numeropdv." | ".$ligne_mag->adresse." | ".$ligne_mag->horaires."&nbsp; <a href=panel/modif_mag.php?magasin=".$ligne_mag->numeropdv.">Modifier données</a> | <a href=panel/modif_produits_mag.php?magasin=".$ligne_mag->numeropdv.">Modifier les produits</a></br>";
+            }
+
+        }
         if ($niveau == 4) {
             echo "<h2>Section administrateur</h2>";
             echo "<h3>Liste des utilisateurs</h3>";
