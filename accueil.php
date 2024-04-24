@@ -23,7 +23,7 @@ include("include/connexion.inc.php");
 <h1>Accueil</h1>
 
 <h2>Recheche</h2>
-<form method="get">
+<form method="post">
 	<select name="produit">
 		<option disables selected>Rechercher...</option>
 		<?php
@@ -31,7 +31,7 @@ include("include/connexion.inc.php");
 		while ($ligne = $results->fetch(PDO::FETCH_OBJ)) { // Nous mener sur la page detailsproduit du produit selectionné dans le menu, Il semblerait qu'on soit obligé d'utiliser POST, https://stackoverflow.com/questions/21524405/how-do-i-store-select-value-into-a-php-variable
 			?> <option value="<?php echo $ligne->numeroproduit ?>"> <?php echo $ligne->description; } ?> </option>
 	</select>
-	<input type="submit" formaction=<?php echo "detailsproduit.php?produit=".$_POST["produit"] ?> value="Rechercher">
+	<input type="submit" formaction="recherche.php" value="Rechercher">
 </form>
 
 <h2>Catégories</h2>
