@@ -11,17 +11,19 @@
         header("location: ../accueil.php");
     }
     
-    if (isset($_POST['numeroproduit']) && isset($_POST['description']) && isset($_POST['prix']) && isset($_POST['dimensions'])&& isset($_POST['poids']) && isset($_POST['siret_f'])){
+    if (isset($_POST['numeroproduit']) && isset($_POST['description']) && isset($_POST['prix']) && isset($_POST['dimensions'])&& isset($_POST['poids']) && isset($_POST['siret_f']) && isset($_POST['categorie'])){
         $numeroproduit = $_POST['numeroproduit'];
         $description = $_POST['description'];
         $prix = $_POST['prix'];
         $dimensions = $_POST['dimensions'];
         $poids = $_POST['poids'];
         $siret_f = $_POST['siret_f'];
+        $categorie = $_POST['categorie'];
 
-        $resultat = $cnx->query("INSERT INTO produits VALUES ('$numeroproduit', '$description', $prix, '$dimensions', $poids, '$siret_f');");
+        $resultat = $cnx->query("INSERT INTO produits VALUES ('$numeroproduit', '$description', $prix, '$dimensions', $poids, '$siret_f')");
+        $resultat_cat = $cnx->query("INSERT INTO appartient VALUES ('$numeroproduit', '$categorie')");
 
-        if ($resultat) {
+        if ($resultat && $resultat_cat) {
             echo "Produit ajouté avec succès";
         } else {
             echo "Erreur lors de l'ajout du produit";
@@ -48,6 +50,15 @@
 
     <label for="siret_f">Siret fournisseur:</label>
     <input type="text" name="siret_f" id="siret_f" required><br>
+
+    <label for="categorie">Catégorie:</label>
+	<select name="categorie">
+		<option disabled selected hidden>Choisir catégorie...</option>
+		<?php
+		$results = $cnx->query("SELECT description FROM catégorie");
+		while ($ligne = $results->fetch(PDO::FETCH_OBJ)) { // Nous mener sur la page detailsproduit du produit selectionné dans le menu, Il semblerait qu'on soit obligé d'utiliser POST, https://stackoverflow.com/questions/21524405/how-do-i-store-select-value-into-a-php-variable
+			?> <option value="<?php echo $ligne->numeroproduit ?>"> <?php echo $ligne->description; } ?> </option>
+	</select>
 
     <input type="submit" value="Ajouter le produit">
 </form>
