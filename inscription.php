@@ -61,7 +61,7 @@ if (isset($_POST['mdp'])) {
 
 
     // TODO: Réparer la requête
-    $req = $cnx->prepare('INSERT INTO client (numcli, nom, prenom, email, tel, niveau, mdp) VALUES (DEFAULT, :nom, :prenom, :email, :tel, :niveau, :mdp);');
+    $req = $cnx->prepare('INSERT INTO client (numcli, nom, prenom, email, telephone, niveau, mdp) VALUES (DEFAULT, :nom, :prenom, :email, :tel, :niveau, :mdp);');
     $req->bindParam(':nom', $nom);
     $req->bindParam(':prenom', $prenom);
     $req->bindParam(':email', $email);
