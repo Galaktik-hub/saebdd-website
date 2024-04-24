@@ -11,7 +11,7 @@
         header("location: ../accueil.php");
     }
     
-    if (isset($_GET['modif']) && isset($_GET['numeroproduit'])) {
+    if (isset($_GET['modif']) && isset($_GET['numeroproduit'])) { // Modification produit
         $modif = $_GET['modif'];
         $numeroproduit = $_GET['numeroproduit'];
         
@@ -19,12 +19,25 @@
             $valeur = $_GET['valeur'];
             $modification = $cnx->query('UPDATE produits SET '.$modif.'=\''.$valeur.'\' WHERE numeroproduit=\''.$numeroproduit.'\';');
             if ($modification) {
-                echo "Produit modifié avec succès";
+                echo "Produit modifié avec succès</br>";
+
             } else {
                 echo "Erreur lors de la modification du produit </br>";
             }
         } else {
             echo "Champ invalide</br>";
+        }
+    }
+
+    if (isset($_GET['categorie'])) { // Modification catégorie
+        $newcat = $_GET['categorie'];
+        $modification_cat = $cnx->exec("UPDATE appartient SET description = '".$newcat."' WHERE numeroproduit = '".$numeroproduit."'");
+        
+        if ($modification_cat) {
+            echo "Catégorie modifiée avec succès (".$newcat.")</br>";
+        }
+        else {
+            echo "La modification de la catégorie du produit a échouée (".$newcat.")</br>";
         }
     }
 
@@ -41,8 +54,18 @@
     echo '        <option value="poids">Poids</option>';
     echo '        <option value="siret_f">Siret fournisseur</option>';
     echo '    </select>';
-    echo '    <input type="text" name="valeur" id="valeur" required><br>';
-    echo '    <input type="submit" value="Modifier le produit">';
+    echo '    <br><p>Entrez la nouvelle valeur du champ</p>';
+    echo '    <input type="text" name="valeur" id="valeur"><br><br>';
+    ?>
+            <select name="categorie">
+                <option disabled selected hidden>Changer catégorie...</option>
+                <?php
+                $results = $cnx->query("SELECT description FROM catégorie");
+                while ($ligne = $results->fetch(PDO::FETCH_OBJ)) {
+                    ?> <option value="<?php echo $ligne->description ?>"> <?php echo $ligne->description; } ?> </option>
+            </select>
+    <?php
+    echo '</br></br><input type="submit" value="Modifier le produit">';
     echo '</form>';
 
     echo '<h3><a href="../panel.php">Retour au panel</a></h3>';
