@@ -44,10 +44,13 @@
             }
             echo "<p><a href='panel/ajout_user.php'>Ajouter un utilisateur</a></p>";
             echo "<h3>Liste des produits</h3>";
-            $users = $cnx->query("SELECT * FROM produits ORDER BY numeroproduit");
-            echo("Numéro | Description | Prix | Dimensions | Poids | Siret fournisseur<br>");
-            while ($ligne = $users->fetch(PDO::FETCH_OBJ)) {
-                echo $ligne->numeroproduit." | ".$ligne->description." | ".$ligne->prix." | ".$ligne->dimensions." | ".$ligne->poids." | ".$ligne->siret_f;
+            $prods = $cnx->query("SELECT * FROM produits ORDER BY numeroproduit");
+            echo("Numéro | Description | Prix | Dimensions | Poids | Siret fournisseur | Catégorie<br>");
+            while ($ligne = $prods->fetch(PDO::FETCH_OBJ)) {
+                echo $ligne->numeroproduit." | ".$ligne->description." | ".$ligne->prix." | ".$ligne->dimensions." | ".$ligne->poids." | ".$ligne->siret_f." | ";
+                $catprods = $cnx->query("SELECT description FROM appartient WHERE numeroproduit = '".$ligne->numeroproduit."'");
+                $lignecat = $catprods->fetch(PDO::FETCH_OBJ);
+                echo $lignecat->description;
                 echo "&nbsp; <a href='panel/modif_prod.php?numeroproduit=".$ligne->numeroproduit."'>Modifier données</a> | <a href='panel/suppr_prod.php?numeroproduit=".$ligne->numeroproduit."'>Supprimer</a><br>";
             }
             echo "<p><a href='panel/ajout_prod.php'>Ajouter un produit</a></p>";

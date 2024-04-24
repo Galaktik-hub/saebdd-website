@@ -22,7 +22,6 @@ include("include/header.inc.php");
 </br>
 
 <?php
-
 include("include/connexion.inc.php");
 
 $produit = $_GET['produit'];
@@ -33,6 +32,25 @@ echo $ligne->description."</br>";
 echo $ligne->prix." euros</br>";
 echo "<a href=\"ajouterpanier.php?produit=".$produit."\">"."Ajouter au panier"."</a>"."</br>";
 $results->closeCursor();
+
+// Si le produit est un ordinateur
+
+$results = $cnx->query("SELECT description FROM appartient WHERE numeroproduit = '".$produit."'");
+$appartient = $results->fetch(PDO::FETCH_OBJ);
+echo $appartient->description;
+if ($appartient->description == 'ordinateurs') {
+	echo "<h2>Composants de l'ordinateur ".$ligne->description." :</h2>";
+
+	// Trouver les produits contenu dans le produit de catégorie ordinateur (avec la table contient)
+	$results = $cnx->query("SELECT numeroproduit_est_contenu FROM contient WHERE numeroproduit_contient = '".$produit."'");
+	while ($produits_dans_ordinateur = $results->fetch(PDO::FETCH_OBJ)) {
+		$results_2 = $cnx->query("SELECT description, prix FROM produits WHERE numeroproduit = '".$produits_dans_ordinateur->numeroproduit_est_contenu."'");
+		$ligne_2 = $results_2->fetch(PDO::FETCH_OBJ);
+		echo $ligne_2->description."</br>";
+		echo $ligne_2->prix." euros</br>";
+		echo "<a href=\"ajouterpanier.php?produit=".$produits_dans_ordinateur->numeroproduit_est_contenu."\">"."Ajouter au panier"."</a>"."</br></br>";
+	}
+}
 
 echo "<h2>Magasins disposant du produit ".$ligne->description." :</h2>";
 $results = $cnx->query("SELECT adresse FROM point_de_vente JOIN possède ON point_de_vente.numeropdv = possède.numeropdv WHERE possède.numeroproduit = '".$produit."'");

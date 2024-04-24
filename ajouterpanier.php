@@ -10,12 +10,7 @@ if (isset($_GET["produit"])) {
 
 	$cart[] = $_GET["produit"];
 	setcookie("panier", serialize($cart), time() + 60*60*24*30);
-	if (isset($_GET["categorie"])) {
-		header('location: produits.php?categorie='.$_GET["categorie"]);
-	}
-	else {
-		header('location: detailsproduit.php?produit='.$_GET["produit"]);
-	}
+	header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 else {
 	header('location: accueil.php');

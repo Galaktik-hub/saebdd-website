@@ -31,7 +31,7 @@ $results = $cnx->query("SELECT produits.numeroproduit, produits.description, pro
 while ($ligne = $results->fetch(PDO::FETCH_OBJ)) {
     echo "<a href=\"detailsproduit.php?produit=".$ligne->numeroproduit."\">".$ligne->description."</a></br>";
 	echo $ligne->prix." euros</br>";
-	echo "<a href=\"ajouterpanier.php?produit=".$ligne->numeroproduit."&categorie=".$categorie."\">"."Ajouter au panier"."</a>"."</br></br>";
+	echo "<a href=\"ajouterpanier.php?produit=".$ligne->numeroproduit."\">"."Ajouter au panier"."</a>"."</br></br>";
 }
 ?>
 
