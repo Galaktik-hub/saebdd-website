@@ -3,9 +3,13 @@
 if (isset($_GET["produit"])) {
 	$oldcart = unserialize($_COOKIE["panier"]);
 	$cart = [];
+	$produit = $_GET["produit"];
 	foreach ($oldcart as $elt) { // Supprime les occurrences du produit à supprimer, changer pour ne supprimer que la première occurrence
-		if ($elt != $_GET["produit"]) {
+		if ($elt != $produit) {
 			$cart[] = $elt;
+		}
+		else {
+			$produit = null; // Afin de ne pas supprimer plusieurs fois le même produit
 		}
 	}
 	if (count($cart) > 0) {
